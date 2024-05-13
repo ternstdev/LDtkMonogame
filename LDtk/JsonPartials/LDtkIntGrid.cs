@@ -65,11 +65,11 @@ public class LDtkIntGrid
         return point.X >= 0 && point.Y >= 0 && point.X < GridSize.X && point.Y < GridSize.Y;
     }
 
-    /// <summary> Convert from world pixel space to int grid space Floors the value based on <see cref="TileSize"/> to an Integer. </summary>
+    /// <summary> Convert from world pixel space to int grid space. Floors the value based on <see cref="TileSize"/> to an Integer. </summary>
     public Point FromWorldToGridSpace(Vector2 position)
     {
-        int x = (int)Math.Floor(position.X / TileSize);
-        int y = (int)Math.Floor(position.Y / TileSize);
-        return new Point(x, y);
+        position -= WorldPosition.ToVector2(); // Covert from world space to local space.
+        position /= TileSize; // Covert from local space to grid space.
+        return position.ToPoint(); // Floor the values.
     }
 }
